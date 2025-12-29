@@ -1,11 +1,15 @@
 [config]
-# --- SiliconFlow 模型配置 ---
+# --- 模型配置 ---
 model = "deepseek-ai/DeepSeek-V3"
 fallback_models = ["Qwen/Qwen2.5-Coder-72B-Instruct"]
 
+# [关键修复] 手动指定最大 Token 数 (DeepSeek支持64k+，这里设64000很安全)
+custom_model_max_tokens = 64000
+
 [openai]
-# --- SiliconFlow 接口地址 ---
+# --- 接口地址 ---
 api_base = "https://api.siliconflow.cn/v1"
+api_type = "openai"
 
 [pr_reviewer]
 # --- 审查功能开关 ---
@@ -21,12 +25,9 @@ extra_instructions = """
 3. **Java 审查重点**:
    - 严格检查 NullPointerException 风险。
    - 检查 @Transactional 事务边界和 SQL 注入风险。
-   - 忽略简单的 Getters/Setters 和 Lombok 注解。
 4. **Vue 审查重点**:
    - 检查 onMounted/onUnmounted 中的定时器和事件监听器是否正确清理（防内存泄漏）。
    - 检查响应式数据 (ref/reactive) 的使用是否正确。
-5. **通用原则**:
-   - 忽略格式问题，专注于安全、逻辑和性能。
 """
 
 [pr_description]
