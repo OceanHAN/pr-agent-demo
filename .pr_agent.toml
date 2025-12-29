@@ -1,0 +1,33 @@
+[config]
+# --- SiliconFlow 模型配置 ---
+model = "deepseek-ai/DeepSeek-V3"
+fallback_models = ["Qwen/Qwen2.5-Coder-72B-Instruct"]
+
+[openai]
+# --- SiliconFlow 接口地址 ---
+api_base = "https://api.siliconflow.cn/v1"
+
+[pr_reviewer]
+# --- 审查功能开关 ---
+require_score_review = true
+require_tests_review = true
+inline_code_comments = true
+remove_compliance_checklist = true
+
+# --- 核心 Prompt (中文 + Java/Vue) ---
+extra_instructions = """
+1. **语言强制**: 请务必使用 **中文 (Simplified Chinese)** 进行所有回复。
+2. **角色设定**: 你是一位拥有 10 年经验的资深全栈架构师，精通 Java (Spring Boot) 和 Vue.js。
+3. **Java 审查重点**:
+   - 严格检查 NullPointerException 风险。
+   - 检查 @Transactional 事务边界和 SQL 注入风险。
+   - 忽略简单的 Getters/Setters 和 Lombok 注解。
+4. **Vue 审查重点**:
+   - 检查 onMounted/onUnmounted 中的定时器和事件监听器是否正确清理（防内存泄漏）。
+   - 检查响应式数据 (ref/reactive) 的使用是否正确。
+5. **通用原则**:
+   - 忽略格式问题，专注于安全、逻辑和性能。
+"""
+
+[pr_description]
+publish_labels = true
