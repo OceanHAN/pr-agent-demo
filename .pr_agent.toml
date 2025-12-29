@@ -1,13 +1,14 @@
 [config]
-# --- 模型配置 ---
-model = "deepseek-ai/DeepSeek-V3"
-fallback_models = ["Qwen/Qwen2.5-Coder-72B-Instruct"]
+# [关键修改] 在模型名字前面加上 "openai/"
+model = "openai/deepseek-ai/DeepSeek-V3"
 
-# [关键修复] 手动指定最大 Token 数 (DeepSeek支持64k+，这里设64000很安全)
+# [关键修改] 备用模型也要加上 "openai/"
+fallback_models = ["openai/Qwen/Qwen2.5-Coder-72B-Instruct"]
+
+# 保持这个不变，非常有用的配置
 custom_model_max_tokens = 64000
 
 [openai]
-# --- 接口地址 ---
 api_base = "https://api.siliconflow.cn/v1"
 api_type = "openai"
 
